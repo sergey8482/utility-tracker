@@ -23,11 +23,19 @@ export default function AddressEditor({ open, onClose, onSave, initial }:{ open:
                 </select>
               </label>
               <div className="grid" style={{gridTemplateColumns:'1fr 1fr 1fr', gap:8}}>
-                {(['t1','t2','t3'] as const).map(k => (
-                  <label key={k}><span className="muted" style={{fontSize:12}}>Т{k[1]}</span>
-                    <input inputMode="decimal" value={(tar as any).electricity[k]} onChange={e=>setTar((t:any)=>({...t, electricity:{...t.electricity, [k]: num(e.target.value)}}))} />
+                <label><span className="muted" style={{fontSize:12}}>Т1</span>
+                  <input inputMode="decimal" value={(tar as any).electricity.t1} onChange={e=>setTar((t:any)=>({...t, electricity:{...t.electricity, t1: num(e.target.value)}}))} />
+                </label>
+                {(tar as any).electricity.type !== 'single' && (
+                  <label><span className="muted" style={{fontSize:12}}>Т2</span>
+                    <input inputMode="decimal" value={(tar as any).electricity.t2} onChange={e=>setTar((t:any)=>({...t, electricity:{...t.electricity, t2: num(e.target.value)}}))} />
                   </label>
-                ))}
+                )}
+                {(tar as any).electricity.type === 'three' && (
+                  <label><span className="muted" style={{fontSize:12}}>Т3</span>
+                    <input inputMode="decimal" value={(tar as any).electricity.t3} onChange={e=>setTar((t:any)=>({...t, electricity:{...t.electricity, t3: num(e.target.value)}}))} />
+                  </label>
+                )}
               </div>
             </div>
           </fieldset>

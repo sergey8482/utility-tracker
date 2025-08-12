@@ -4,7 +4,7 @@ export default function Modal({ open, onClose, children }:{ open:boolean; onClos
   return (
     <div className="modal">
       <div className="modal-back" onClick={onClose}></div>
-      <div>{children}</div>
+      <div onClick={(e) => e.stopPropagation()}>{children}</div>
     </div>
   )
 }
