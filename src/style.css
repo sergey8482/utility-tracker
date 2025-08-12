@@ -23,5 +23,6 @@
 input,select,textarea{border:1px solid var(--border);border-radius:10px;padding:12px 16px;background:var(--panel);color:var(--text);width:100%;font-size:14px;transition:border-color 0.2s}
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brand)}
 input::placeholder{color:var(--muted)}
+label{display:block}
 fieldset{border:1px solid var(--border);border-radius:12px;padding:16px;margin:0}
 legend{font-size:12px;color:var(--muted);font-weight:600;padding:0 8px}

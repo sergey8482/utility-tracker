@@ -14,11 +14,12 @@ export default function AddressEditor({ open, onClose, onSave, initial }:{ open:
           <span className="muted" style={{fontSize:12, display:'block', marginBottom:4}}>Название</span>
           <input value={name} onChange={e=>setName(e.target.value)} placeholder="Введите название адреса" />
         </label>
-        <div className="grid" style={{gridTemplateColumns:'1fr 1fr', gap:12}}>
-          <fieldset><legend>Электричество, ₽/кВт·ч</legend>
-            <div className="grid" style={{gap:8}}>
+        <div className="grid" style={{gridTemplateColumns:'1fr 1fr', gap:16}}>
+          <fieldset>
+            <legend>Электричество, ₽/кВт·ч</legend>
+            <div className="grid" style={{gap:12}}>
               <label>
-                <span className="muted" style={{fontSize:12}}>Тип тарифа</span>
+                <span className="muted" style={{fontSize:12, display:'block', marginBottom:4}}>Тип тарифа</span>
                 <select value={(tar as any).electricity.type || 'single'} onChange={e=>setTar((t:any)=>({...t, electricity:{...t.electricity, type: e.target.value}}))}>
                   <option value="single">Однофазный (Т1)</option>
                   <option value="two">Двухфазный (Т1+Т2)</option>
@@ -26,41 +27,62 @@ export default function AddressEditor({ open, onClose, onSave, initial }:{ open:
                 </select>
               </label>
               <div className="grid" style={{gridTemplateColumns:'1fr 1fr 1fr', gap:8}}>
-                <label><span className="muted" style={{fontSize:12}}>Т1</span>
+                <label>
+                  <span className="muted" style={{fontSize:12, display:'block', marginBottom:4}}>Т1</span>
                   <input inputMode="decimal" value={(tar as any).electricity.t1} onChange={e=>setTar((t:any)=>({...t, electricity:{...t.electricity, t1: num(e.target.value)}}))} />
                 </label>
                 {(tar as any).electricity.type !== 'single' && (
-                  <label><span className="muted" style={{fontSize:12}}>Т2</span>
+                  <label>
+                    <span className="muted" style={{fontSize:12, display:'block', marginBottom:4}}>Т2</span>
                     <input inputMode="decimal" value={(tar as any).electricity.t2} onChange={e=>setTar((t:any)=>({...t, electricity:{...t.electricity, t2: num(e.target.value)}}))} />
                   </label>
                 )}
                 {(tar as any).electricity.type === 'three' && (
-                  <label><span className="muted" style={{fontSize:12}}>Т3</span>
+                  <label>
+                    <span className="muted" style={{fontSize:12, display:'block', marginBottom:4}}>Т3</span>
                     <input inputMode="decimal" value={(tar as any).electricity.t3} onChange={e=>setTar((t:any)=>({...t, electricity:{...t.electricity, t3: num(e.target.value)}}))} />
                   </label>
                 )}
               </div>
             </div>
           </fieldset>
-          <fieldset><legend>Вода, ₽/м³</legend>
-            <div className="grid" style={{gridTemplateColumns:'1fr 1fr', gap:8}}>
-              <label><span className="muted" style={{fontSize:12}}>Холодная</span><input inputMode="decimal" value={(tar as any).water.cold} onChange={e=>setTar((t:any)=>({...t, water:{...t.water, cold:num(e.target.value)}}))} /></label>
-              <label><span className="muted" style={{fontSize:12}}>Горячая</span><input inputMode="decimal" value={(tar as any).water.hot} onChange={e=>setTar((t:any)=>({...t, water:{...t.water, hot:num(e.target.value)}}))} /></label>
+          <fieldset>
+            <legend>Вода, ₽/м³</legend>
+            <div className="grid" style={{gridTemplateColumns:'1fr 1fr', gap:12}}>
+              <label>
+                <span className="muted" style={{fontSize:12, display:'block', marginBottom:4}}>Холодная</span>
+                <input inputMode="decimal" value={(tar as any).water.cold} onChange={e=>setTar((t:any)=>({...t, water:{...t.water, cold:num(e.target.value)}}))} />
+              </label>
+              <label>
+                <span className="muted" style={{fontSize:12, display:'block', marginBottom:4}}>Горячая</span>
+                <input inputMode="decimal" value={(tar as any).water.hot} onChange={e=>setTar((t:any)=>({...t, water:{...t.water, hot:num(e.target.value)}}))} />
+              </label>
             </div>
           </fieldset>
-          <fieldset><legend>Газ, ₽/м³</legend>
-            <label><span className="muted" style={{fontSize:12}}>Тариф</span><input inputMode="decimal" value={(tar as any).gas.t1} onChange={e=>setTar((t:any)=>({...t, gas:{ t1:num(e.target.value) }}))} /></label>
+          <fieldset>
+            <legend>Газ, ₽/м³</legend>
+            <label>
+              <span className="muted" style={{fontSize:12, display:'block', marginBottom:4}}>Тариф</span>
+              <input inputMode="decimal" value={(tar as any).gas.t1} onChange={e=>setTar((t:any)=>({...t, gas:{ t1:num(e.target.value) }}))} />
+            </label>
           </fieldset>
-          <fieldset><legend>Отопление/ТКО</legend>
-            <div className="grid" style={{gridTemplateColumns:'1fr 1fr', gap:8}}>
-              <label><span className="muted" style={{fontSize:12}}>Отопление, ₽/Гкал</span><input inputMode="decimal" value={(tar as any).heating.gcal} onChange={e=>setTar((t:any)=>({...t, heating:{ gcal:num(e.target.value) }}))} /></label>
-              <label><span className="muted" style={{fontSize:12}}>ТКО, ₽/мес</span><input inputMode="decimal" value={(tar as any).waste.monthly} onChange={e=>setTar((t:any)=>({...t, waste:{ monthly:num(e.target.value) }}))} /></label>
+          <fieldset>
+            <legend>Отопление/ТКО</legend>
+            <div className="grid" style={{gridTemplateColumns:'1fr 1fr', gap:12}}>
+              <label>
+                <span className="muted" style={{fontSize:12, display:'block', marginBottom:4}}>Отопление, ₽/Гкал</span>
+                <input inputMode="decimal" value={(tar as any).heating.gcal} onChange={e=>setTar((t:any)=>({...t, heating:{ gcal:num(e.target.value) }}))} />
+              </label>
+              <label>
+                <span className="muted" style={{fontSize:12, display:'block', marginBottom:4}}>ТКО, ₽/мес</span>
+                <input inputMode="decimal" value={(tar as any).waste.monthly} onChange={e=>setTar((t:any)=>({...t, waste:{ monthly:num(e.target.value) }}))} />
+              </label>
             </div>
           </fieldset>
         </div>
-        <div className="flex space">
+        <div className="flex space" style={{marginTop:24}}>
           {initial ? <button className="button" style={{borderColor:'#ef4444', color:'#ef4444'}} onClick={()=>{ if(confirm('Удалить адрес и связанные данные?')){ onSave({ ...initial, __delete:true }); onClose() } }}>Удалить</button> : <span />}
-          <div className="flex" style={{gap:8}}>
+          <div className="flex" style={{gap:12}}>
             <button className="button" onClick={onClose}>Отмена</button>
             <button className="button primary" onClick={()=>{ if(!name.trim()) return alert('Введите название'); const payload = initial ? { ...initial, name, tariffs:tar } : { id: crypto.randomUUID?.() || Math.random().toString(36).slice(2), name, tariffs:tar }; onSave(payload); onClose() }}>Сохранить</button>
           </div>
