@@ -8,9 +8,12 @@ export default function AddressEditor({ open, onClose, onSave, initial }:{ open:
   const num = (v:any) => (v==='' || v===null || isNaN(+v) ? 0 : +v)
   return (
     <Modal open={open} onClose={onClose}>
-      <h3 style={{marginBottom:8}}>Адрес</h3>
-              <div className="grid" style={{gap:12}}>
-        <label>Название<input value={name} onChange={e=>setName(e.target.value)} /></label>
+      <h3 style={{marginBottom:16}}>Адрес</h3>
+      <div className="grid" style={{gap:16}}>
+        <label>
+          <span className="muted" style={{fontSize:12, display:'block', marginBottom:4}}>Название</span>
+          <input value={name} onChange={e=>setName(e.target.value)} placeholder="Введите название адреса" />
+        </label>
         <div className="grid" style={{gridTemplateColumns:'1fr 1fr', gap:12}}>
           <fieldset><legend>Электричество, ₽/кВт·ч</legend>
             <div className="grid" style={{gap:8}}>
