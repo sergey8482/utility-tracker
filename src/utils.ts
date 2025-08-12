@@ -14,7 +14,7 @@ export const monthLabel = (ym: string) => {
   return new Date(Number(y), Number(m)-1, 1).toLocaleDateString('ru-RU', { month:'short', year:'numeric' })
 }
 export const defaultTariffs = () => ({
-  electricity: { t1:0, t2:0, t3:0 },
+  electricity: { t1:0, t2:0, t3:0, type: 'single' }, // single, two, three
   water: { cold:0, hot:0 },
   gas: { t1:0 },
   heating: { gcal:0 },
@@ -30,7 +30,14 @@ export const saveState = (s: any) => { try { localStorage.setItem(LS_KEY, JSON.s
 export function migrateState(s: any) {
   if (!s) return null
   const out = { ...s }
-  out.addresses = (s.addresses || []).map((a: any) => ({ ...a, tariffs: a.tariffs || defaultTariffs() }))
+  out.addresses = (s.addresses || []).map((a: any) => {
+    const tariffs = a.tariffs || defaultTariffs()
+    // Миграция для электрических тарифов
+    if (tariffs.electricity && !tariffs.electricity.type) {
+      tariffs.electricity.type = 'single'
+    }
+    return { ...a, tariffs }
+  })
   if (!out.selectedAddressId && out.addresses[0]) out.selectedAddressId = out.addresses[0].id
   if (!out.settings) out.settings = { darkMode:false, notifications:false, autoBackup24h:false }
   if (!out.tariffs) out.tariffs = {}

@@ -9,16 +9,26 @@ export default function AddressEditor({ open, onClose, onSave, initial }:{ open:
   return (
     <Modal open={open} onClose={onClose}>
       <h3 style={{marginBottom:8}}>Адрес</h3>
-      <div className="grid" style={{gap:12}}>
+              <div className="grid" style={{gap:12}}>
         <label>Название<input value={name} onChange={e=>setName(e.target.value)} /></label>
         <div className="grid" style={{gridTemplateColumns:'1fr 1fr', gap:12}}>
           <fieldset><legend>Электричество, ₽/кВт·ч</legend>
-            <div className="grid" style={{gridTemplateColumns:'1fr 1fr 1fr', gap:8}}>
-              {(['t1','t2','t3'] as const).map(k => (
-                <label key={k}><span className="muted" style={{fontSize:12}}>Т{k[1]}</span>
-                  <input inputMode="decimal" value={(tar as any).electricity[k]} onChange={e=>setTar((t:any)=>({...t, electricity:{...t.electricity, [k]: num(e.target.value)}}))} />
-                </label>
-              ))}
+            <div className="grid" style={{gap:8}}>
+              <label>
+                <span className="muted" style={{fontSize:12}}>Тип тарифа</span>
+                <select value={(tar as any).electricity.type || 'single'} onChange={e=>setTar((t:any)=>({...t, electricity:{...t.electricity, type: e.target.value}}))}>
+                  <option value="single">Однофазный (Т1)</option>
+                  <option value="two">Двухфазный (Т1+Т2)</option>
+                  <option value="three">Трехфазный (Т1+Т2+Т3)</option>
+                </select>
+              </label>
+              <div className="grid" style={{gridTemplateColumns:'1fr 1fr 1fr', gap:8}}>
+                {(['t1','t2','t3'] as const).map(k => (
+                  <label key={k}><span className="muted" style={{fontSize:12}}>Т{k[1]}</span>
+                    <input inputMode="decimal" value={(tar as any).electricity[k]} onChange={e=>setTar((t:any)=>({...t, electricity:{...t.electricity, [k]: num(e.target.value)}}))} />
+                  </label>
+                ))}
+              </div>
             </div>
           </fieldset>
           <fieldset><legend>Вода, ₽/м³</legend>
