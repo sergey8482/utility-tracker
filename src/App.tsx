@@ -29,6 +29,16 @@ export default function App(){
   const [addrEditing, setAddrEditing] = useState<any>(null)
 
   useEffect(()=>{ saveState(state) }, [state])
+  
+  // Применяем темную тему
+  useEffect(() => {
+    const root = document.documentElement
+    if (state.settings.darkMode) {
+      root.setAttribute('data-theme', 'dark')
+    } else {
+      root.removeAttribute('data-theme')
+    }
+  }, [state.settings.darkMode])
 
   const selectedAddress = addresses.find((a:any)=>a.id===selectedAddressId) ?? addresses[0]
 
